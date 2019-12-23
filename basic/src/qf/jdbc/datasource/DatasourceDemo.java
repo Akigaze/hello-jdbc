@@ -1,10 +1,10 @@
-package qf.jdbc.drivermanager;
+package qf.jdbc.datasource;
 
-
-import com.mysql.cj.jdbc.Driver;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import qf.jdbc.City;
 import qf.jdbc.Utils;
 
+import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,31 +12,32 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriverManagerDemo {
+import static qf.jdbc.DatabaseConfiguration.*;
 
+public class DatasourceDemo {
   public static void main(String[] args) {
+    ComboPooledDataSource dataSource = new ComboPooledDataSource();
     Connection connection = null;
     Statement statement = null;
     ResultSet resultSet = null;
-
     try {
-      Class.forName(Driver.class.getName());
-      connection = JDBCUtils.getConnection();
+      dataSource.setDriverClass(DRIVER);
+      dataSource.setJdbcUrl(Utils.connectionUrl(HOST, PORT, DATABASE, CONNECTION_PARAMS));
+      dataSource.setUser(USER);
+      dataSource.setPassword(PASSWORD);
+
+      System.out.println("max pool size: " + dataSource.getMinPoolSize());
+      connection = dataSource.getConnection();
+
       statement = connection.createStatement();
       resultSet = statement.executeQuery("select * from city");
+
       List<City> cities = new ArrayList<>();
       while (resultSet.next()) {
-        City city = new City(
-          resultSet.getInt("id"),
-          resultSet.getString("code"),
-          resultSet.getString("name"),
-          resultSet.getString("country"),
-          resultSet.getInt("population")
-        );
-        cities.add(city);
+        cities.add(City.build(resultSet));
       }
       System.out.println(cities);
-    } catch (ClassNotFoundException | SQLException e) {
+    } catch (PropertyVetoException | SQLException e) {
       e.printStackTrace();
     } finally {
       Utils.close(resultSet, statement, connection);

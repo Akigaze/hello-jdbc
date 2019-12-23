@@ -48,7 +48,7 @@ public class DriverManagerPreparedDemo {
     PreparedStatement preparedStatement = null;
 
     try {
-      connection = DatabaseConfiguration.getConnection();
+      connection = JDBCUtils.getConnection();
       String insertCitySql = "insert city(code, name, country, population) value(?, ?, ?, ?)";
       preparedStatement = connection.prepareStatement(insertCitySql);
       preparedStatement.setString(1, city.getCode());
@@ -70,7 +70,7 @@ public class DriverManagerPreparedDemo {
     PreparedStatement preparedStatement = null;
 
     try {
-      connection = DatabaseConfiguration.getConnection();
+      connection = JDBCUtils.getConnection();
       String insertCitySql = "insert city(code, name, country, population) value(?, ?, ?, ?)";
       preparedStatement = connection.prepareStatement(insertCitySql);
       connection.setAutoCommit(false); // 默认是自动commit的
@@ -100,7 +100,7 @@ public class DriverManagerPreparedDemo {
     PreparedStatement preparedStatement = null;
 
     try {
-      connection = DatabaseConfiguration.getConnection();
+      connection = JDBCUtils.getConnection();
       String deleteCitySql = "delete from city where code = ? and country = ?";
       preparedStatement = connection.prepareStatement(deleteCitySql);
       connection.setAutoCommit(false);
@@ -126,7 +126,7 @@ public class DriverManagerPreparedDemo {
     PreparedStatement preparedStatement = null;
 
     try {
-      connection = DatabaseConfiguration.getConnection();
+      connection = JDBCUtils.getConnection();
       String deleteCitySql = "delete from city where code = ? and country = ?";
       preparedStatement = connection.prepareStatement(deleteCitySql);
       connection.setAutoCommit(false);
@@ -155,7 +155,7 @@ public class DriverManagerPreparedDemo {
     PreparedStatement preparedStatement = null;
 
     try {
-      connection = DatabaseConfiguration.getConnection();
+      connection = JDBCUtils.getConnection();
       String updateCitySql = "update city set code=?, name=?, country=?, population=? where id=?";
       preparedStatement = connection.prepareStatement(updateCitySql);
       connection.setAutoCommit(false);
@@ -185,7 +185,7 @@ public class DriverManagerPreparedDemo {
     ResultSet resultSet = null;
 
     try {
-      connection = DatabaseConfiguration.getConnection();
+      connection = JDBCUtils.getConnection();
       String queryCitySql = "select * from city where country=? limit 1";
       preparedStatement = connection.prepareStatement(queryCitySql);
 
