@@ -1,4 +1,4 @@
-package qf.jdbc.datasource;
+package qf.jdbc.datasource.c3p0;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import qf.jdbc.City;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static qf.jdbc.DatabaseConfiguration.*;
 
-public class DatasourceDemo {
+public class C3P0DatasourceDemo {
   public static void main(String[] args) {
     ComboPooledDataSource dataSource = new ComboPooledDataSource();
     Connection connection = null;
@@ -42,5 +42,6 @@ public class DatasourceDemo {
     } finally {
       Utils.close(resultSet, statement, connection);
     }
+    dataSource.close();
   }
 }
