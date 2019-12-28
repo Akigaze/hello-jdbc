@@ -22,3 +22,10 @@ Doc:
 
 Examples:
 - [c3p0 example](https://www.programcreek.com/java-api-examples/?api=com.mchange.v2.c3p0.ComboPooledDataSource)
+
+
+H2:
+- [Official](http://h2database.com/html/main.html)
+- [Official - Tutorial](http://h2database.com/html/tutorial.html#tutorial_starting_h2_console)
+- [default browser console](http://loaclhost:8082/)
+- **config file location:** C:\\Users\\xxx\\.h2.server.properties
